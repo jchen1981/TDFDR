@@ -40,8 +40,10 @@ prevent security exceptions.
 Then in R:
 install.packages("Rmosek", type="source", INSTALL_opts="--no-multiarch", 
 repos="http://download.mosek.com/R/8")
+```
 
-We also provide an alternative function 'install.mosek.R' to install mosek if the procedure above fails.
+We also provide an alternative function 'install.mosek.R' to install mosek if the 
+procedure above fails.
 ```
 source('installmosek.R') 
 installmosek()
@@ -101,5 +103,6 @@ We illustrate the usage of tdfdr package using simulated data.
 ```
 
 ### Reproducibility
-All the codes to reproduce the results in the manuscript are contained in 'Simulation' and 'RealData' folders.
+All the codes to reproduce the results in the manuscript are contained in 'Simulation' and 'RealData' folders. Due to file limit on github, we provide a dropbox link to download the relevant data.
+
 
