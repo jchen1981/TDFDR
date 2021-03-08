@@ -7,6 +7,6 @@ Author: Jun Chen,  Sangyoon Yi, Xianyang Zhang
 Maintainer: Jun Chen <chen.jun2@mayo.edu>
 Description: The package implements a two-dimensional false discovery rate control procedure for powerful confounder adjustment in linear models with applications to omics association studies. The method is based on the idea that the confounder(s) usually affect part of the omics features, and thus adjusting the confounder for ALL omics features will be over-adjustment, leading to reduced statistical power.  The proposed procedure starts with performing the unadjusted analysis (first dimension - filtering) to narrow down the list of omics features which are more likely to be affected by either the confounder or the variable of interest or both. In the second dimension, we conduct adjusted analysis on these 'top' candidates to reduce multiple testing burden and increase the power.
 Depends: R (>= 3.2.0)
-Imports: stats, ggplot2, reshape2, qvalue, limma, doMC, pbivnorm, REBayes
+Imports: stats, ggplot2, reshape2, qvalue, limma, doMC, pbivnorm, nspmix
 License: GPL-2
 RoxygenNote: 6.1.1

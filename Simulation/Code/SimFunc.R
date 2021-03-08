@@ -34,7 +34,7 @@
 #' @rdname simulate.data
 #' @export
 
-simulate.data <- function (n = 100, p = 10000, conf.sig.cor,
+simulate.data <- function (n = 100, p = 10000, conf.sig.cor, dimZ = 1,
 		sig.density = 0.1, sig.strength.m = 0.4, sig.strength.sd = 0.2,
 		conf.density = 0.1, conf.strength.m = 0.4, conf.strength.sd = 0.2,
 		conf.sig.loc = c('Random', 'NonCoLoc', 'CoLoc'), coloc.prob = 0.5, 
@@ -45,7 +45,7 @@ simulate.data <- function (n = 100, p = 10000, conf.sig.cor,
 	# Generate correlated x and z
 	x0 <- rnorm(n)
 	x <- scale(conf.sig.cor * x0 + rnorm(n))
-	z <- scale(conf.sig.cor * x0 + rnorm(n))
+	z <- scale(conf.sig.cor * x0 + matrix(rnorm(n * dimZ), n, dimZ))
 	
 	p.sig <- round(p * sig.density)
 	p.conf <- round(p * conf.density)
@@ -133,7 +133,8 @@ simulate.data <- function (n = 100, p = 10000, conf.sig.cor,
 
 	}
 	
-	y <- x %*% t(coef.x) + z %*% t(coef.z) + epsilon
+	y <- x %*% t(coef.x) + z %*% matrix(coef.z, nrow = dimZ, ncol = p, byrow = TRUE) + epsilon
+	
 	truth <- as.numeric(coef.x != 0)
 	
 	return(list(x = x, z = z, y = y, coef.x = coef.x, coef.z = coef.z, truth = truth))

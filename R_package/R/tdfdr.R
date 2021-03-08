@@ -89,6 +89,7 @@ tdfdr <- function (y,  x,  z,
 		parallel = FALSE, cores = NULL, verbose = TRUE) {	
 
 	etype <- match.arg(etype)
+	npeb.grid <- 300
 	
 	if (is.factor(x)) {
 		if (nlevels(x) > 2) {
@@ -152,8 +153,8 @@ tdfdr <- function (y,  x,  z,
 	sigma.est <- lm.obj2$sigma
 	
 	# need to adjust for multivariate confounder, and collinearity between Z and X
-    if (verbose) cat('Perform EB estimation of sigma ...\n')
-	out <- limma::squeezeVar(sigma.est^2, lm.obj2$dof)
+    # if (verbose) cat('Perform EB estimation of sigma ...\n')
+	out <- squeezeVar(sigma.est^2, lm.obj2$dof)
 	sigma.est <- sqrt(out$var.post)
 	
 	Zu <- (sqrt(n * O) * coef.x.u / sigma.est)
@@ -164,8 +165,12 @@ tdfdr <- function (y,  x,  z,
 	
 	if (verbose) cat('Perform NPEB estimation of eta...\n')
 	
-	mm <- REBayes::GLmix(x = eta)
-	normalized.prob <- mm$y / sum(mm$y)
+#	mm <- REBayes::GLmix(x = eta)
+#	normalized.prob <- mm$y / sum(mm$y)
+	
+	mm <- cnm(npnorm(eta), grid = npeb.grid)   
+	normalized.prob <- mm$mix$pr
+	mmx <- mm$mix$pt
 	
 	# Here pi0 is a vector, and could be a global estimate pi0 <- mean(pi0)
 	if (est.pi0 == TRUE) {
@@ -182,15 +187,15 @@ tdfdr <- function (y,  x,  z,
 		NP <- sum(abs(Zu) >= t1 & abs(Za) >= t2)
 		
 		if (NP != 0) {
-			x1 <- -t1 - mm$x * sqrt(A)
-			x2 <- t1 - mm$x * sqrt(A)
+			x1 <- -t1 - mmx * sqrt(A)
+			x2 <- t1 - mmx * sqrt(A)
 			y1 <- -t2
 			y2 <- t2
 			
-			A1 <- pbivnorm::pbivnorm(x = x1, y = y1, rho = rho)
-			A2 <- pbivnorm::pbivnorm(x = x2, y = y1, rho = rho)
-			A3 <- pbivnorm::pbivnorm(x = x2, y = y2, rho = rho)
-			A4 <- pbivnorm::pbivnorm(x = x1, y = y2, rho = rho)
+			A1 <- pbivnorm(x = x1, y = y1, rho = rho)
+			A2 <- pbivnorm(x = x2, y = y1, rho = rho)
+			A3 <- pbivnorm(x = x2, y = y2, rho = rho)
+			A4 <- pbivnorm(x = x1, y = y2, rho = rho)
 			
 			B1 <- pnorm(x1)
 			B2 <- pnorm(x2)
@@ -256,9 +261,13 @@ tdfdr <- function (y,  x,  z,
 		pos <- rep(FALSE, p)
 	} else {
 		NP2 <- NP[ind]
-		names(NP2) <- paste(ind)
-		ind <- as.numeric(names(which.max(NP2)))
-		temp <- unlist(strsplit(t1t2[ind], ' '))
+		FDP2 <- FDP[ind]
+		names(NP2) <- names(FDP2) <- paste(ind)
+
+		ind2 <- as.numeric(names(which.min(FDP2[NP2 == max(NP2)])))
+		
+#		ind <- as.numeric(names(which.max(NP2)))
+		temp <- unlist(strsplit(t1t2[ind2], ' '))
 		t1 <- as.numeric(temp[1])
 		t2 <- as.numeric(temp[2])
 		
