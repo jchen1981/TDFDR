@@ -51,10 +51,10 @@ installmosek()
 ```
 ### Install dependent packages 
 
-"ggplot2", "reshape2", "doMC", "pbivnorm", "REBayes", "limma", "qvalue"
+"ggplot2", "reshape2", "doMC", "pbivnorm", "nspmix", "limma", "qvalue"
 
 ```
-install.packages(c("ggplot2", "reshape2", "doMC", "pbivnorm", "REBayes"))
+install.packages(c("ggplot2", "reshape2", "doMC", "pbivnorm", "nspmix"))
 if (!requireNamespace("BiocManager", quietly = TRUE))
    install.packages("BiocManager")
 BiocManager::install(c("limma", "qvalue"))
