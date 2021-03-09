@@ -89,7 +89,7 @@ tdfdr <- function (y,  x,  z,
 		parallel = FALSE, cores = NULL, verbose = TRUE) {	
 
 	etype <- match.arg(etype)
-	npeb.grid <- 300
+	npeb.grid <- 500
 	
 	if (is.factor(x)) {
 		if (nlevels(x) > 2) {
@@ -264,9 +264,9 @@ tdfdr <- function (y,  x,  z,
 		FDP2 <- FDP[ind]
 		names(NP2) <- names(FDP2) <- paste(ind)
 
-#		ind2 <- as.numeric(names(which.min(FDP2[NP2 == max(NP2)])))
+		ind2 <- as.numeric(names(which.min(FDP2[NP2 == max(NP2)])))
 		
-		ind2 <- as.numeric(names(which.max(NP2)))
+#		ind2 <- as.numeric(names(which.max(NP2)))
 		temp <- unlist(strsplit(t1t2[ind2], ' '))
 		t1 <- as.numeric(temp[1])
 		t2 <- as.numeric(temp[2])
