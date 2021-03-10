@@ -85,11 +85,11 @@ fastLM <- function(Y, M) {
 
 tdfdr <- function (y,  x,  z,  
 		est.pi0 = TRUE, lambda = 0.5, alpha = 0.05, etype = c('FDR', 'FWER'), 
-		t1a = NULL, t2a = NULL, ngrid = 50, 
+		t1a = NULL, t2a = NULL, ngrid = 50, npeb.grid = 1000,
 		parallel = FALSE, cores = NULL, verbose = TRUE) {	
 
 	etype <- match.arg(etype)
-	npeb.grid <- 500
+
 	
 	if (is.factor(x)) {
 		if (nlevels(x) > 2) {
