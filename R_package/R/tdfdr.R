@@ -165,12 +165,12 @@ tdfdr <- function (y,  x,  z,
 	
 	if (verbose) cat('Perform NPEB estimation of eta...\n')
 	
-	mm <- REBayes::GLmix(x = eta)
-	normalized.prob <- mm$y / sum(mm$y)
+#	mm <- REBayes::GLmix(x = eta)
+#	normalized.prob <- mm$y / sum(mm$y)
 	
-#	mm <- cnm(npnorm(eta), grid = npeb.grid)   
-#	normalized.prob <- mm$mix$pr
-#	mmx <- mm$mix$pt
+	mm <- cnm(npnorm(eta), grid = npeb.grid)   
+	normalized.prob <- mm$mix$pr
+	mmx <- mm$mix$pt
 	
 	# Here pi0 is a vector, and could be a global estimate pi0 <- mean(pi0)
 	if (est.pi0 == TRUE) {
@@ -187,10 +187,10 @@ tdfdr <- function (y,  x,  z,
 		NP <- sum(abs(Zu) >= t1 & abs(Za) >= t2)
 		
 		if (NP != 0) {
-#			x1 <- -t1 - mmx * sqrt(A)
-#			x2 <- t1 - mmx * sqrt(A)
-			x1 <- -t1 - mm$x * sqrt(A)
-    		x2 <- t1 - mm$x * sqrt(A)
+			x1 <- -t1 - mmx * sqrt(A)
+			x2 <- t1 - mmx * sqrt(A)
+#			x1 <- -t1 - mm$x * sqrt(A)
+#    		x2 <- t1 - mm$x * sqrt(A)
 			y1 <- -t2
 			y2 <- t2
 			
@@ -266,9 +266,8 @@ tdfdr <- function (y,  x,  z,
 		FDP2 <- FDP[ind]
 		names(NP2) <- names(FDP2) <- paste(ind)
 
-#		ind2 <- as.numeric(names(which.min(FDP2[NP2 == max(NP2)])))
-		
-		ind2 <- as.numeric(names(which.max(NP2)))
+		ind2 <- as.numeric(names(which.min(FDP2[NP2 == max(NP2)])))
+#		ind2 <- as.numeric(names(which.max(NP2)))
 		temp <- unlist(strsplit(t1t2[ind2], ' '))
 		t1 <- as.numeric(temp[1])
 		t2 <- as.numeric(temp[2])
