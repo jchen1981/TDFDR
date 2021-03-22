@@ -37,7 +37,6 @@
 simulate.data <- function (n = 100, p = 10000, conf.sig.cor = 1.25, dimZ = 1,
 		sig.density = 0.1, sig.strength.m = 0.4, sig.strength.sd = 0.2,
 		conf.density = 0.1, conf.strength.m = 0.4, conf.strength.sd = 0.2,
-		conf.sig.cor = 
 		conf.sig.loc = c('Random', 'NonCoLoc', 'CoLoc'), coloc.prob = 0.5, 
 		cor.struct = c('Indep', 'Block1', 'AR1'), rho = 0, nblock = 100) {
 	
