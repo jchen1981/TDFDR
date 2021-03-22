@@ -5,7 +5,7 @@
 #'  
 #' @param n a numeric value, sample size.
 #' @param p a numeric value, feature size.
-#' @param conf.sig.cor a numeric value controlling the correlation between the variable of interest and the confounder.
+#' @param conf.sig.cor a numeric value controlling the correlation between the variable of interest and the confounder. 
 #' @param sig.density a numeric value (0-1), the density of true signals.
 #' @param sig.strength.m a numeric value, minimum strength (regression coefficient) for the true signals.
 #' @param sig.strength.sd a numeric value, the maximum increment over the minimum strength for the true signals.
@@ -34,9 +34,10 @@
 #' @rdname simulate.data
 #' @export
 
-simulate.data <- function (n = 100, p = 10000, conf.sig.cor, dimZ = 1,
+simulate.data <- function (n = 100, p = 10000, conf.sig.cor = 1.25, dimZ = 1,
 		sig.density = 0.1, sig.strength.m = 0.4, sig.strength.sd = 0.2,
 		conf.density = 0.1, conf.strength.m = 0.4, conf.strength.sd = 0.2,
+		conf.sig.cor = 
 		conf.sig.loc = c('Random', 'NonCoLoc', 'CoLoc'), coloc.prob = 0.5, 
 		cor.struct = c('Indep', 'Block1', 'AR1'), rho = 0, nblock = 100) {
 	
