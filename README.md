@@ -6,10 +6,7 @@ The function implements the two-dimensional false discovery rate control for pow
 
 ## Installation 
 
-```
-### Install dependent packages 
-
-"ggplot2", "reshape2", "doMC", "pbivnorm", "nspmix", "limma", "qvalue"
+### Install dependent packages "ggplot2", "reshape2", "doMC", "pbivnorm", "nspmix", "limma", "qvalue"
 
 ```
 install.packages(c("ggplot2", "reshape2", "doMC", "pbivnorm", "nspmix"))
