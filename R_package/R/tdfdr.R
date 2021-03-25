@@ -153,9 +153,9 @@ tdfdr <- function (y,  x,  z,
 	sigma.est <- lm.obj2$sigma
 	
 	# need to adjust for multivariate confounder, and collinearity between Z and X
-	out <- squeezeVar(sigma.est^2, lm.obj2$dof)
-	sigma.est <- sqrt(out$var.post)
-	
+#	out <- squeezeVar(sigma.est^2, lm.obj2$dof)
+#	sigma.est <- sqrt(out$var.post)
+#	
 	Zu <- (sqrt(n * O) * coef.x.u / sigma.est)
 	Za <- (sqrt(n * Oz) * coef.x.a / sigma.est)
 	
