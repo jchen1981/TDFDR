@@ -2,9 +2,6 @@
 # All the simulations are contained in this file
 func <- function(part, paras) {
 	require(qvalue)
-	require(pbivnorm)
-	require(REBayes)
-	require(limma)
 	require(MASS)
 	require(tdfdr)
 	
@@ -163,11 +160,10 @@ paras.list <- list()
 tempdir.list <- list()
 dat.list <- list()
 func.list <- list()
-dat.list[[1]] <- 1:100
-func.list[[1]] <- func
+
 
 # Varying density and strength of the true signals, and varying confounding strength
-# Figure 1d, e
+# Figure 2
 paras <- list()
 paras$prefix <- prefix
 paras$prefix2 <- 'Base1'
@@ -189,9 +185,13 @@ paras$rho <- 0.6
 
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
+
+
 
 # Varying density and strength of the confounding signals, and varying confounding strength
-# Figure S1
+# Figure 3
 paras <- list()
 paras$prefix <- prefix
 paras$prefix2 <- 'Base2'
@@ -212,10 +212,68 @@ paras$nblock <- 100
 paras$rho <- 0.6
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
+
+# Varying  strength of the confounding signals, and varying confounding strength
+# confouder density: 50%
+# Figure 3
+paras <- list()
+paras$prefix <- prefix
+paras$prefix2 <- 'Base3'
+paras$resdir <- resdir
+paras$fdr.cutoff <- 0.05
+paras$pval.cutoff <- 0.05
+paras$feature.nos <- 10000
+paras$sample.nos <- 100
+paras$conf.densities <- c( 'Higher')
+paras$conf.strengths <- c('Weak', 'Moderate', 'Strong')
+paras$conf.sig.cors <- c('Low', 'Medium', 'High')
+paras$conf.sig.locs <- c('Random')
+paras$sig.densities <- c('Medium')
+paras$sig.strengths <- c('Moderate')
+paras$coloc.prob <- 0.5
+paras$cor.structs <- c('Indep')
+paras$nblock <- 100
+paras$rho <- 0.6
+paras.list[[paras$prefix2]] <- paras
+tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
+##
+
+
+# Varying density and strength of the confounding signals, and varying confounding strength 
+# five confounders
+# Figure S2
+paras <- list()
+paras$prefix <- prefix
+paras$prefix2 <- 'DimZ'
+paras$resdir <- resdir
+paras$fdr.cutoff <- 0.05
+paras$pval.cutoff <- 0.05
+paras$feature.nos <- 10000
+paras$sample.nos <- 100
+paras$conf.densities <- c('Low', 'Medium', 'High')
+paras$conf.strengths <- c('Weak', 'Moderate', 'Strong')
+paras$conf.sig.cors <- c('Low', 'Medium', 'High')
+paras$conf.sig.locs <- c('Random')
+paras$sig.densities <- c('Medium')
+paras$sig.strengths <- c('Moderate')
+paras$dimZ <- 5
+paras$coloc.prob <- 0.5
+paras$cor.structs <- c('Indep')
+paras$nblock <- 100
+paras$rho <- 0.6
+paras.list[[paras$prefix2]] <- paras
+tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
+
 
 # Varying density and strength of the confounding signals, and varying confounding strength
 # Different degrees of colocation of the true and confounding signals
-# Figure S2
+# Figure S3
 
 paras <- list()
 paras$prefix <- prefix
@@ -238,10 +296,12 @@ paras$rho <- 0.6
 
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
 
 # Varying density and strength of the confounding signals, and varying confounding strength
 # Block correlation structure
-# Figure S3
+# Figure S4
 paras <- list()
 paras$prefix <- prefix
 paras$prefix2 <- 'Cor1'
@@ -262,10 +322,12 @@ paras$nblock <- 100
 paras$rho <- 0.6
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
 
 # Varying density and strength of the confounding signals, and varying confounding strength
 # AR(1) correlation structure
-# Figure S4
+# Figure S5
 paras <- list()
 paras$prefix <- prefix
 paras$prefix2 <- 'Cor2'
@@ -287,10 +349,12 @@ paras$rho <- 0.6
 
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
 
 # Varying density and strength of the confounding signals, and varying confoudning strength
 # Two smaller sample sizes
-# Figure S5
+# Figure S6
 paras <- list()
 paras$prefix <- prefix
 paras$prefix2 <- 'N'
@@ -311,10 +375,12 @@ paras$nblock <- 100
 paras$rho <- 0.6
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:100
+func.list[[paras$prefix2]] <- func
 
 # Varying density and strength of the confounding signals, and varying confounding strength
 # Two smaller feature sizes
-# Figure S6
+# Figure S7
 paras <- list()
 paras$prefix <- prefix
 paras$prefix2 <- 'P'
@@ -336,9 +402,35 @@ paras$rho <- 0.6
 
 paras.list[[paras$prefix2]] <- paras
 tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:1000
+func.list[[paras$prefix2]] <- func
 
 
+# Interaction between sample size and feature size
+# Figure S8
+paras <- list()
+paras$prefix <- prefix
+paras$prefix2 <- 'NP'
+paras$resdir <- resdir
+paras$fdr.cutoff <- 0.05
+paras$pval.cutoff <- 0.05
+paras$feature.nos <- c(100, 10000, 50000)
+paras$sample.nos <- c(25, 100, 250)
+paras$conf.densities <- c('Medium')
+paras$conf.strengths <- c('Moderate')
+paras$conf.sig.cors <- c('Low', 'Medium', 'High')
+paras$conf.sig.locs <- c('Random')
+paras$sig.densities <- c('Medium')
+paras$sig.strengths <- c('Moderate')
+paras$coloc.prob <- 0.5
+paras$cor.structs <- c('Indep')
+paras$nblock <- 100
+paras$rho <- 0.6
 
+paras.list[[paras$prefix2]] <- paras
+tempdir.list[[paras$prefix2]] <- file.path(resdir, paras$prefix2)
+dat.list[[paras$prefix2]] <- 1:1000
+func.list[[paras$prefix2]] <- func
 
 
 # Run on the cluster

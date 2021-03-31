@@ -5,7 +5,7 @@
 \title{Two-dimenisonal false discovery rate control for powerful confounder adjustment in omics-wide association studies}
 \usage{
 tdfdr(y, x, z, est.pi0 = TRUE, lambda = 0.5, alpha = 0.05,
-  etype = c("FDR", "FWER"), t1a = NULL, t2a = NULL, ngrid = 50,
+  etype = c("FDR", "FWER"), t1a = NULL, t2a = NULL, ngrid = 50, npeb.grid = 500,
   parallel = FALSE, cores = NULL, verbose = TRUE)
 }
 \arguments{
@@ -24,7 +24,9 @@ tdfdr(y, x, z, est.pi0 = TRUE, lambda = 0.5, alpha = 0.05,
 \item{t1a, t2a}{a numeric vector giving the search grid for the z-score of adjusted and unadjusted statistics, respectively. Default is NULL, and the grid
 will be determined automatically.}
 
-\item{ngrid}{an integer number indicating the number of grids. Default is 50. For more refined results, increase the number.}
+\item{ngrid}{an integer number indicating the grid size. Default is 50. For more refined results, increase the number.}
+
+\item{npeb.ngrid}{an integer number indicating the grid size used in \code{ nspmix::cnm}. Default is 500. }
 
 \item{parallel}{a logical value indicating whether to search in parallel. Default is FALSE.}
 

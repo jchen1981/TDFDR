@@ -124,7 +124,7 @@ simulate.data <- function (n = 100, p = 10000, conf.sig.cor = 1.25, dimZ = 1,
 		
 		obj <- Tmat(p, nblock, rho)
 		bs <- p / nblock
-		epsilon <- as.vector(obj$T1 %*% matrix(rnorm(p), bs, nblock))
+		epsilon <- t(sapply(1:n, function (i) as.vector(obj$T1 %*% matrix(rnorm(p), bs, nblock))))
 	} 
 
 	if (cor.struct == 'AR1') {

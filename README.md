@@ -23,37 +23,37 @@ devtools::install_github("jchen1981/TDFDR/R_package")
 We illustrate the usage of tdfdr package using simulated data.
 
 ```
-     require(tdfdr)
-     require(qvalue)
-     source('https://raw.githubusercontent.com/jchen1981/TDFDR/master/Simulation/Code/SimFunc.R')
+ require(tdfdr)
+ require(qvalue)
+ source('https://raw.githubusercontent.com/jchen1981/TDFDR/master/Simulation/Code/SimFunc.R')
 
-     
-     # Simulate data
-     data <- simulate.data(n = 100, p = 1000, conf.sig.cor = 1.25, dimZ = 2,
-		    sig.density = 0.1, sig.strength.m = 0.4, sig.strength.sd = 0.2,
-		    conf.density = 0.1, conf.strength.m = 0.4, conf.strength.sd = 0.2)
-	 x <- data$x
-	 z <- data$z
-	 y <- data$y
-	 truth <- data$truth
-			
-     # One-dimenisonal procedure - classic adjusted procedure
-     obj1 <- summary(lm(y ~ x + z))
-     pv1 <- sapply(obj1, function(x) x$coefficient[2, 4])
-     qv1 <- qvalue(pv1)$qvalue
-     pos1 <- qv1 <= 0.05
+ 
+ # Simulate data
+ data <- simulate.data(n = 100, p = 1000, conf.sig.cor = 1.25, dimZ = 2,
+	    sig.density = 0.1, sig.strength.m = 0.4, sig.strength.sd = 0.2,
+	    conf.density = 0.1, conf.strength.m = 0.4, conf.strength.sd = 0.2)
+ x <- data$x
+ z <- data$z
+ y <- data$y
+ truth <- data$truth
+		
+ # One-dimenisonal procedure - classic adjusted procedure
+ obj1 <- summary(lm(y ~ x + z))
+ pv1 <- sapply(obj1, function(x) x$coefficient[2, 4])
+ qv1 <- qvalue(pv1)$qvalue
+ pos1 <- qv1 <= 0.05
 
-     # Two-dimensional procedure
-     obj2 <- tdfdr(y, x, z, alpha = 0.05)
-     pos2 <- obj2$pos
+ # Two-dimensional procedure
+ obj2 <- tdfdr(y, x, z, alpha = 0.05)
+ pos2 <- obj2$pos
 
-     # Compare the false discovery proportions
-     sum(pos1 & !truth) / max(sum(pos1), 1)
-     sum(pos2 & !truth) / max(sum(pos2), 1)
-     
-     # Compare the number of hits
-     sum(pos1 & truth)
-     sum(pos2 & truth)
+ # Compare the false discovery proportions
+ sum(pos1 & !truth) / max(sum(pos1), 1)
+ sum(pos2 & !truth) / max(sum(pos2), 1)
+ 
+ # Compare the number of hits
+ sum(pos1 & truth)
+ sum(pos2 & truth)
   
 ```
 
