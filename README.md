@@ -4,6 +4,9 @@ Two-dimensional false discovery rate control for powerful confounder adjustment 
 ## Overview
 The function implements the two-dimensional false discovery rate control for powerful confounder adjustment in omics association analysis. The method is based on the idea that the confounder(s) usually affect part of the omics features, and thus adjusting the confounder(s) for ALL omics features will be over-adjustment, leading to reduced statistical power.  The proposed procedure starts with performing the unadjusted analysis (first dimension - filtering) to narrow down the list of omics features which are more likely to be affected by either the confounder or the variable of interest or both. In the second dimension, we conduct confounder-adjusted analysis on these 'top' candidates, which are enriched in signals, to reduce multiple testing burden and increase the power. The method belongs to the general topic of using auxiliary data to increase the power of multiple testing, which has recently received tremendous research interest. In our case, the auxiliary data are the the unadjusted statistics, which could inform the probability of the null hypotheses being true.  The difficulty here is to take into account the correlation between the auxiliary data (unadjusted statistics) and the main data (adjusted statistics). We provide a procedure that is theoretically guaranteed to control the false discovery rate while maximizing the power.
 
+## License
+GPL version 2 or any later version
+
 ## Installation 
 
 ### Install dependent packages "ggplot2", "reshape2", "doMC", "pbivnorm", "nspmix", "limma", "qvalue"
